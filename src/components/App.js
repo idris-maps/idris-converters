@@ -5,6 +5,10 @@ import DropZone from './DropZone'
 import SaveSql from './SaveSql'
 import Info from './Info'
 import SaveGpxAsJson from './SaveGpxAsJson'
+import CsvHead from './CsvHead'
+import CsvDefineHead from './CsvDefineHead'
+import CsvGeom from './CsvGeom'
+import SaveCsvAsJson from './SaveCsvAsJson'
 
 class App extends Component {
 	render() {
@@ -24,6 +28,26 @@ class App extends Component {
 			/>)
 		} else if(show === 'gpx') {
 			return(<SaveGpxAsJson
+				dispatch={ this.props.dispatch }
+				data={ this.props.data }
+			/>)
+		} else if(show === 'csv-head') {
+			return(<CsvHead
+				dispatch={ this.props.dispatch }
+				data={ this.props.data }
+			/>)
+		} else if(show === 'csv-define-head') {
+			return(<CsvDefineHead
+				dispatch={ this.props.dispatch }
+				data={ this.props.data }
+			/>)
+		} else if(show === 'csv-geom') {
+			return (<CsvGeom 
+				dispatch={ this.props.dispatch }
+				data={ this.props.data }
+			/>)
+		} else if(show === 'csv-ready') {
+			return (<SaveCsvAsJson 
 				dispatch={ this.props.dispatch }
 				data={ this.props.data }
 			/>)

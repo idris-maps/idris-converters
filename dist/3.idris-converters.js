@@ -1,6 +1,37 @@
 webpackJsonp([3],{
 
-/***/ 244:
+/***/ 100:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var gpx2points = __webpack_require__(250);
+
+module.exports = function (string, callback) {
+	parseXML(string, function (err0, xml) {
+		if (err0) {
+			callback(err0);
+		} else {
+			gpx2points(xml, function (err1, points) {
+				callback(err1, points);
+			});
+		}
+	});
+};
+
+function parseXML(string, callback) {
+	if (window.DOMParser) {
+		var parser = new window.DOMParser();
+		callback(null, parser.parseFromString(string, 'text/xml'));
+	} else {
+		callback('Your browser does not support \"DOMParser\"');
+	}
+}
+
+/***/ }),
+
+/***/ 250:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -117,37 +148,6 @@ function trksegLoop(i, children, trkpts, callback) {
 		} else {
 			trksegLoop(i + 1, children, trkpts, callback);
 		}
-	}
-}
-
-/***/ }),
-
-/***/ 98:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var gpx2points = __webpack_require__(244);
-
-module.exports = function (string, callback) {
-	parseXML(string, function (err0, xml) {
-		if (err0) {
-			callback(err0);
-		} else {
-			gpx2points(xml, function (err1, points) {
-				callback(err1, points);
-			});
-		}
-	});
-};
-
-function parseXML(string, callback) {
-	if (window.DOMParser) {
-		var parser = new window.DOMParser();
-		callback(null, parser.parseFromString(string, 'text/xml'));
-	} else {
-		callback('Your browser does not support \"DOMParser\"');
 	}
 }
 

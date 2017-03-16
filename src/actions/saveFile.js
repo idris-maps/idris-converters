@@ -1,5 +1,6 @@
 var save = require('./save-file/save-as')
 var gpx = require('./save-file/gpx')
+var csv = require('./save-file/csv')
 
 module.exports = function(data) {
 	return function(dispatch) {
@@ -17,6 +18,11 @@ module.exports = function(data) {
 			} else if(data.as === 'line') {
 				save.json('line-from-gpx', gpx.line(data.data))
 			}
+		} else if(data.type === 'csv') {
+			require.ensure(['./save-file/csv'], function(require) {
+				var csv = require('./save-file/csv')
+				save.json('from-csv', csv(data.head, data.rows, data.geom))
+			})
 		}
 	}
 }
