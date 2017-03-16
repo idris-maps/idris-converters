@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 242:
+/***/ 247:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -1485,7 +1485,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 
 
-var Papa = __webpack_require__(242);
+var Papa = __webpack_require__(247);
 
 module.exports = function (csv) {
 	return Papa.parse(csv);

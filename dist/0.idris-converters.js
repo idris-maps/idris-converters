@@ -6,8 +6,8 @@ webpackJsonp([0],{
 "use strict";
 
 
-var wkt = __webpack_require__(243);
-var fixString = __webpack_require__(240);
+var wkt = __webpack_require__(248);
+var fixString = __webpack_require__(245);
 
 module.exports = function (json, callback) {
 	var props = getProps(json.features);
@@ -75,7 +75,7 @@ function getProps(feats) {
 
 /***/ }),
 
-/***/ 240:
+/***/ 245:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -151,7 +151,7 @@ function removeDiacritics(str) {
 
 /***/ }),
 
-/***/ 243:
+/***/ 248:
 /***/ (function(module, exports) {
 
 /*eslint-disable no-cond-assign */

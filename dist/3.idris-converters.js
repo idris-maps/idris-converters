@@ -1,6 +1,6 @@
 webpackJsonp([3],{
 
-/***/ 239:
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -128,7 +128,7 @@ function trksegLoop(i, children, trkpts, callback) {
 "use strict";
 
 
-var gpx2points = __webpack_require__(239);
+var gpx2points = __webpack_require__(244);
 
 module.exports = function (string, callback) {
 	parseXML(string, function (err0, xml) {

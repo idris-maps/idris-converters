@@ -3,15 +3,23 @@ import { connect } from 'react-redux'
 
 import DropZone from './DropZone'
 import SaveSql from './SaveSql'
+import Info from './Info'
 
 class App extends Component {
 	render() {
-		if(this.props.page.show === 'index') {
+		var show = this.props.page.show
+		if(show === 'index') {
 			return (<DropZone dispatch={ this.props.dispatch } />)
-		} else if(this.props.page.show === 'geojson') {
+		} else if(show === 'geojson') {
 			return (<SaveSql 
 				data={ this.props.data } 
 				dispatch={ this.props.dispatch }
+			/>)
+		} else if(show === 'info') {
+			return(<Info
+				dispatch={ this.props.dispatch }
+				msg={ this.props.page.msg }
+				reset={ this.props.page.reset }
 			/>)
 		} else {
 			console.log('App', this)
