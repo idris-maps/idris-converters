@@ -24,4 +24,4 @@ class DropZone extends Component {
 	}
 }
 
-export default DropZone;
+export default DropZone

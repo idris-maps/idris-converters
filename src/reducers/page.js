@@ -18,6 +18,8 @@ export default function reducer(state=defaultState, action) {
 		return {...state, show: 'gpx-error' }
 	} else if(type === 'GOT_GPX_POINTS') {
 		return {...state, show: 'gpx' }
+	} else if(type === 'RESET') {
+		return {...state, show: 'index' }
 	} else {
 		return state
 	}

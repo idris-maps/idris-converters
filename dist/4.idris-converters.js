@@ -1,18 +1,18 @@
-webpackJsonp([0],{
+webpackJsonp([4],{
 
-/***/ 100:
+/***/ 241:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var wkt = __webpack_require__(243);
-var fixString = __webpack_require__(240);
+var fixString = __webpack_require__(242);
 
 module.exports = function (json, callback) {
-	var props = getProps(json.features);
+	var props = getProps(collection.features);
 	var table = createTable(props);
-	var inserts = createInserts(json.features, props);
+	var inserts = createInserts(collection.features, props);
 	var string = table + inserts;
 	callback(string);
 };
@@ -61,7 +61,6 @@ function createTable(props) {
 function getProps(feats) {
 	var f0 = feats[0];
 	var props = [];
-	var k;
 	for (k in f0.properties) {
 		if (isNaN(f0.properties[k])) {
 			var type = 'varchar';
@@ -75,7 +74,7 @@ function getProps(feats) {
 
 /***/ }),
 
-/***/ 240:
+/***/ 242:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
