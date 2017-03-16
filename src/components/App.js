@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import DropZone from './DropZone'
 import SaveSql from './SaveSql'
 import Info from './Info'
+import SaveGpxAsJson from './SaveGpxAsJson'
 
 class App extends Component {
 	render() {
@@ -20,6 +21,11 @@ class App extends Component {
 				dispatch={ this.props.dispatch }
 				msg={ this.props.page.msg }
 				reset={ this.props.page.reset }
+			/>)
+		} else if(show === 'gpx') {
+			return(<SaveGpxAsJson
+				dispatch={ this.props.dispatch }
+				data={ this.props.data }
 			/>)
 		} else {
 			console.log('App', this)

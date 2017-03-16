@@ -10455,6 +10455,10 @@ var _Info = __webpack_require__(106);
 
 var _Info2 = _interopRequireDefault(_Info);
 
+var _SaveGpxAsJson = __webpack_require__(250);
+
+var _SaveGpxAsJson2 = _interopRequireDefault(_SaveGpxAsJson);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10488,6 +10492,11 @@ var App = function (_Component) {
 					dispatch: this.props.dispatch,
 					msg: this.props.page.msg,
 					reset: this.props.page.reset
+				});
+			} else if (show === 'gpx') {
+				return _react2.default.createElement(_SaveGpxAsJson2.default, {
+					dispatch: this.props.dispatch,
+					data: this.props.data
 				});
 			} else {
 				console.log('App', this);
@@ -10673,7 +10682,7 @@ function checkType(file) {
 var saveAs = __webpack_require__(127).saveAs;
 
 exports.json = function (name, json) {
-	var blob = new Blob([JSON.stringify], { type: "text/plain;charset=utf-8" });
+	var blob = new Blob([JSON.stringify(json)], { type: "text/plain;charset=utf-8" });
 	saveAs(blob, name + '.json');
 };
 
@@ -10690,17 +10699,24 @@ exports.sql = function (name, string) {
 
 
 var save = __webpack_require__(103);
+var gpx = __webpack_require__(249);
 
 module.exports = function (data) {
 	return function (dispatch) {
 		dispatch({ type: 'SAVING_FILE' });
-		if (data.to === 'sql' && data.type === 'geojson') {
+		if (data.to === 'sql') {
 			__webpack_require__.e/* require.ensure */(0).then((function (require) {
 				var toSql = __webpack_require__(100);
 				toSql(data.data, function (string) {
 					save.sql('from-geojson.sql', string);
 				});
 			}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+		} else if (data.type === 'gpx') {
+			if (data.as === 'points') {
+				save.json('points-from-gpx', gpx.points(data.data));
+			} else if (data.as === 'line') {
+				save.json('line-from-gpx', gpx.line(data.data));
+			}
 		}
 	};
 };
@@ -25683,6 +25699,147 @@ _reactDom2.default.render(_react2.default.createElement(
   { store: _store2.default },
   _react2.default.createElement(_App2.default, null)
 ), document.getElementById('root'));
+
+/***/ }),
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.points = function (pts) {
+	var feats = pts.map(function (d) {
+		var p = { time: d.time };
+		if (d.ele) {
+			p.ele = d.ele;
+		}
+		return {
+			type: 'Feature',
+			properties: p,
+			geometry: {
+				type: 'Point',
+				coordinates: [d.lon, d.lat]
+			}
+		};
+	});
+	return {
+		type: 'FeatureCollection',
+		features: feats
+	};
+};
+
+exports.line = function (pts) {
+	var coords = pts.map(function (d) {
+		return [d.lon, d.lat];
+	});
+	var d = new Date(pts[0].time);
+	var date = d.toDateString();
+	return {
+		type: 'FeatureCollection',
+		features: [{
+			type: 'Feature',
+			properties: { date: date },
+			geometry: {
+				type: 'LineString',
+				coordinates: coords
+			}
+		}]
+	};
+};
+
+/***/ }),
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(12);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(20);
+
+var _saveFile = __webpack_require__(104);
+
+var _saveFile2 = _interopRequireDefault(_saveFile);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SaveGpxAsJson = function (_Component) {
+	_inherits(SaveGpxAsJson, _Component);
+
+	function SaveGpxAsJson() {
+		_classCallCheck(this, SaveGpxAsJson);
+
+		return _possibleConstructorReturn(this, (SaveGpxAsJson.__proto__ || Object.getPrototypeOf(SaveGpxAsJson)).apply(this, arguments));
+	}
+
+	_createClass(SaveGpxAsJson, [{
+		key: 'saveSql',
+		value: function saveSql(data, dispatch, type) {
+			if (type === 'p') {
+				data.as = 'points';
+			} else if (type === 'l') {
+				data.as = 'line';
+			}
+			data.to = 'json';
+			dispatch((0, _saveFile2.default)(data));
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this2 = this;
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'button',
+					{ onClick: function onClick() {
+							return _this2.saveSql(_this2.props.data, _this2.props.dispatch, 'p');
+						} },
+					'Download GeoJSON points'
+				),
+				_react2.default.createElement(
+					'button',
+					{ onClick: function onClick() {
+							return _this2.saveSql(_this2.props.data, _this2.props.dispatch, 'l');
+						} },
+					'Download GeoJSON line'
+				),
+				_react2.default.createElement(
+					'button',
+					{ onClick: function onClick() {
+							return _this2.props.dispatch({ type: 'RESET' });
+						} },
+					'Convert another file'
+				)
+			);
+		}
+	}]);
+
+	return SaveGpxAsJson;
+}(_react.Component);
+
+exports.default = SaveGpxAsJson;
 
 /***/ })
 /******/ ]);
