@@ -7268,6 +7268,26 @@ var DropZone = function (_Component) {
 			dispatch((0, _dropFile2.default)(e.target.files[0]));
 		}
 	}, {
+		key: 'aboutBtn',
+		value: function aboutBtn(show, dispatch, whenClick) {
+			if (show) {
+				return _react2.default.createElement(
+					'button',
+					{ onClick: function onClick() {
+							return whenClick(dispatch);
+						} },
+					'About'
+				);
+			} else {
+				return null;
+			}
+		}
+	}, {
+		key: 'showAbout',
+		value: function showAbout(dispatch) {
+			dispatch({ type: 'ABOUT' });
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var _this2 = this;
@@ -7308,7 +7328,9 @@ var DropZone = function (_Component) {
 						{ id: 'dz-txt' },
 						'or drop a file'
 					)
-				)
+				),
+				_react2.default.createElement('br', null),
+				this.aboutBtn(this.props.about, this.props.dispatch, this.showAbout)
 			);
 		}
 	}]);
@@ -10883,6 +10905,10 @@ var _SaveShpAsJson = __webpack_require__(260);
 
 var _SaveShpAsJson2 = _interopRequireDefault(_SaveShpAsJson);
 
+var _About = __webpack_require__(261);
+
+var _About2 = _interopRequireDefault(_About);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10905,7 +10931,8 @@ var App = function (_Component) {
 		value: function whatToRender() {
 			var show = this.props.page.show;
 			if (show === 'index') {
-				return _react2.default.createElement(_DropZone2.default, { dispatch: this.props.dispatch });
+				var a = true;
+				return _react2.default.createElement(_DropZone2.default, { dispatch: this.props.dispatch, about: a });
 			} else if (show === 'geojson') {
 				return _react2.default.createElement(_SaveSql2.default, {
 					data: this.props.data,
@@ -10949,6 +10976,8 @@ var App = function (_Component) {
 					dispatch: this.props.dispatch,
 					data: this.props.data
 				});
+			} else if (show === 'about') {
+				return _react2.default.createElement(_About2.default, { dispatch: this.props.dispatch });
 			} else {
 				console.log('App', this);
 				return _react2.default.createElement(
@@ -10979,7 +11008,9 @@ var App = function (_Component) {
 					{ id: 'page' },
 					_react2.default.createElement('br', null),
 					this.whatToRender()
-				)
+				),
+				_react2.default.createElement('br', null),
+				_react2.default.createElement('br', null)
 			);
 		}
 	}]);
@@ -12415,6 +12446,8 @@ function reducer() {
 		return { show: 'shp' };
 	} else if (type === 'SHP_ERROR') {
 		return { show: 'info', msg: 'Could not convert SHP file', reset: true };
+	} else if (type === 'ABOUT') {
+		return { show: 'about' };
 	} else {
 		return state;
 	}
@@ -27089,6 +27122,122 @@ var SaveShpAsJson = function (_Component) {
 }(_react.Component);
 
 exports.default = SaveShpAsJson;
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var About = function (_Component) {
+	_inherits(About, _Component);
+
+	function About() {
+		_classCallCheck(this, About);
+
+		return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
+	}
+
+	_createClass(About, [{
+		key: 'resetBtn',
+		value: function resetBtn(dispatch) {
+			return _react2.default.createElement(
+				'button',
+				{ onClick: function onClick() {
+						return dispatch({ type: 'RESET' });
+					} },
+				'OK'
+			);
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'p',
+					null,
+					_react2.default.createElement(
+						'b',
+						null,
+						'Idris converter'
+					)
+				),
+				_react2.default.createElement('br', null),
+				_react2.default.createElement('br', null),
+				_react2.default.createElement(
+					'p',
+					{ className: 'left' },
+					'Converts these files to GeoJSON:'
+				),
+				_react2.default.createElement(
+					'ul',
+					null,
+					_react2.default.createElement(
+						'li',
+						null,
+						'Shapefile (.shp)'
+					),
+					_react2.default.createElement(
+						'li',
+						null,
+						'GPS Exchange Format (.gpx)'
+					),
+					_react2.default.createElement(
+						'li',
+						null,
+						'CSV with latitude/longitude'
+					),
+					_react2.default.createElement(
+						'li',
+						null,
+						'CSV with WellKnownText'
+					)
+				),
+				_react2.default.createElement('br', null),
+				_react2.default.createElement(
+					'p',
+					{ className: 'left' },
+					'As well as GeoJSON files to SQL scripts.'
+				),
+				_react2.default.createElement('br', null),
+				_react2.default.createElement(
+					'p',
+					{ className: 'justify' },
+					'All conversions happen in your browser. Your files are not being uploaded to a remote server. The good news is that your data does not travel around the internet. The bad news is that converting big files may be beyond your browser\'s capacity.'
+				),
+				_react2.default.createElement('br', null),
+				this.resetBtn(this.props.dispatch)
+			);
+		}
+	}]);
+
+	return About;
+}(_react.Component);
+
+exports.default = About;
 
 /***/ })
 /******/ ]);

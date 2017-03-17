@@ -28,6 +28,9 @@ table {
 tr {
 	border: 1px solid white;
 }
+ul, .left { text-align: left; }
+.justify { text-align: left; text-align: justify; }
+
 @media (min-width: 350px) {
 	#page { width: 300px; margin: auto; }
 }

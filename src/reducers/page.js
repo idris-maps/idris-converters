@@ -34,6 +34,8 @@ export default function reducer(state=defaultState, action) {
 		return { show: 'shp' }
 	} else if(type === 'SHP_ERROR') {
 		return { show: 'info', msg: 'Could not convert SHP file', reset: true }
+	} else if(type === 'ABOUT') {
+		return { show: 'about' }
 	} else {
 		return state
 	}

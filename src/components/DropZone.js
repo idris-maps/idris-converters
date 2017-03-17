@@ -17,6 +17,16 @@ class DropZone extends Component {
 	onChange(e, dispatch) {
 		dispatch(dropAction(e.target.files[0]))
 	}
+	aboutBtn(show, dispatch, whenClick) {
+		if(show) {
+			return(<button onClick={ () => whenClick(dispatch) }>About</button>)
+		} else {
+			return null
+		}
+	}
+	showAbout(dispatch) {
+		dispatch({ type: 'ABOUT' })
+	}
 	render() {
 		return (<div>
 			<input 
@@ -32,6 +42,8 @@ class DropZone extends Component {
 				onDragEnd={ (e) => this.onDragend(e) }>
 				<div id="dz-txt">or drop a file</div>
 			</div>
+			<br/>
+			{ this.aboutBtn(this.props.about, this.props.dispatch, this.showAbout) }
 		</div>)
 	}
 }

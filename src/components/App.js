@@ -11,12 +11,14 @@ import CsvGeom from './CsvGeom'
 import SaveCsvAsJson from './SaveCsvAsJson'
 import DropDbf from './DropDbf'
 import SaveShpAsJson from './SaveShpAsJson'
+import About from './About'
 
 class App extends Component {
 	whatToRender() {
 		var show = this.props.page.show
 		if(show === 'index') {
-			return (<DropZone dispatch={ this.props.dispatch } />)
+			var a = true
+			return (<DropZone dispatch={ this.props.dispatch } about={ a }/>)
 		} else if(show === 'geojson') {
 			return (<SaveSql 
 				data={ this.props.data } 
@@ -60,6 +62,8 @@ class App extends Component {
 				dispatch={ this.props.dispatch }
 				data={ this.props.data }
 			/>)
+		} else if(show === 'about') {
+			return (<About dispatch={ this.props.dispatch } />)
 		} else {
 			console.log('App', this)
 			return (<p>Page: { this.props.page.show }</p>)
@@ -76,6 +80,7 @@ class App extends Component {
 				<br/>
 				{ this.whatToRender() }
 			</div>
+			<br/><br/>
 		</div>)
 	}
 }
