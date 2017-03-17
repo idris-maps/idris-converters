@@ -16,16 +16,16 @@ module.exports = {
 			template: 'src/public/index.html'
 		}),
 		new CopyWebpackPlugin([
-			{from: 'src/public/style.css'}
+			{from: 'src/public/style.css'},
+			{from: 'src/public/img'},
+			//{from: 'src/public/file-icon.png'},
 		]),
 		new webpack.DefinePlugin({
 				'process.env': {
 				  NODE_ENV: JSON.stringify('developement')
 				}
 		}),
-		/*
-		new UglifyJsPlugin({cacheFolder: 'cache'})
-		* */
+		//new UglifyJsPlugin({cacheFolder: 'cache'})
 	],
  module: {
  	loaders: [

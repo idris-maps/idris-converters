@@ -11,7 +11,7 @@ import CsvGeom from './CsvGeom'
 import SaveCsvAsJson from './SaveCsvAsJson'
 
 class App extends Component {
-	render() {
+	whatToRender() {
 		var show = this.props.page.show
 		if(show === 'index') {
 			return (<DropZone dispatch={ this.props.dispatch } />)
@@ -56,6 +56,19 @@ class App extends Component {
 			return (<p>Page: { this.props.page.show }</p>)
 		}
   }
+  render() {
+		return (<div>
+			<div id="header">
+				<a href="http://www.idris-maps.com" alt="Idris maps">
+					<img src="logo.png" alt="Idris maps" />
+				</a>
+			</div>
+			<div id="page">
+				<br/>
+				{ this.whatToRender() }
+			</div>
+		</div>)
+	}
 }
 
 App = connect((store) => {

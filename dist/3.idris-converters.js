@@ -1,12 +1,12 @@
 webpackJsonp([3],{
 
-/***/ 100:
+/***/ 101:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var gpx2points = __webpack_require__(250);
+var gpx2points = __webpack_require__(253);
 
 module.exports = function (string, callback) {
 	parseXML(string, function (err0, xml) {
@@ -31,7 +31,7 @@ function parseXML(string, callback) {
 
 /***/ }),
 
-/***/ 250:
+/***/ 253:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

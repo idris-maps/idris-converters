@@ -11,14 +11,26 @@ class DropZone extends Component {
 	}
 	onDragover(e) { handle.onDragover(e) }
 	onDragend(e) { handle.onDragend(e) }
+	triggerInput() {
+		document.getElementById('inputfile').click()
+	}
+	onChange(e, dispatch) {
+		dispatch(dropAction(e.target.files[0]))
+	}
 	render() {
 		return (<div>
-			<button onClick={ (e) => console.log(e) }>Test</button>
+			<input 
+				type="file" 
+				name="file" 
+				id="inputfile" 
+				onChange={ (e) => { this.onChange(e, this.props.dispatch) } }/>
+			<button onClick={ () => this.triggerInput() }>Browse filesystem</button>
+			<br/><br/>
 			<div id="drop-zone"
 				onDrop={ (e) => this.onDrop(e, this.props.dispatch) }
 				onDragOver={ (e) => this.onDragover(e) }
 				onDragEnd={ (e) => this.onDragend(e) }>
-				<div>Drop a file here</div>
+				<div id="dz-txt">or drop a file</div>
 			</div>
 		</div>)
 	}

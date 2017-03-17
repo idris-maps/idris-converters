@@ -36,7 +36,8 @@ class CsvGeom extends Component {
 		var ctx = this
 		return (<div>
 			<p className="info">How is geometry represented?</p>
-			<p>As latitude / longitude</p>
+			<br/><br/>
+			<p><b>As latitude / longitude</b></p>
 			<p>Latitude</p>
 			<select onChange={ (e) => this.change('lat', e.target.value, ctx) }>
 				<option>-- Choose column --</option>
@@ -48,7 +49,8 @@ class CsvGeom extends Component {
 				{ this.opts(this.props.data.head) }
 			</select>
 			<button onClick={ () => this.click('ll', ctx) }>OK</button> 
-			<p>As Well Known Text</p>
+			<br/><hr/><br/>
+			<p><b>As Well Known Text</b></p>
 			<select onChange={ (e) => this.change('wkt', e.target.value, this) }>
 				<option>-- Choose column --</option>
 				{ this.opts(this.props.data.head) }

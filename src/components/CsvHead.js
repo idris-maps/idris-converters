@@ -18,6 +18,7 @@ class CsvHead extends Component {
 			<table><tbody>
 			{ this.firstLine(this.props.data.data.data[0]) }
 			</tbody></table>
+			<br/><br/>
 			<p className="info">Are these the names of the columns?</p>
 			<button onClick={ () => this.yes(this.props.data.data.data, this.props.dispatch) }>
 				Yes
