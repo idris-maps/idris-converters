@@ -12,20 +12,20 @@ module.exports = {
 	plugins: [
 		new HtmlwebpackPlugin({
 			title: 'Idris converters',
-			descr: 'Convert CSV, GPX and SHP files to GeoJSON',
+			descr: 'Convert CSV, GPX and SHP files to GeoJSON and SQL scripts in the browser.',
+			keywords: 'Idris, convert, CSV, GPX, SHP, GeoJSON, WKT, GIS, mapping, online tool',
 			template: 'src/public/index.html'
 		}),
 		new CopyWebpackPlugin([
 			{from: 'src/public/style.css'},
-			{from: 'src/public/img'},
-			//{from: 'src/public/file-icon.png'},
+			{from: 'src/public/img'}
 		]),
 		new webpack.DefinePlugin({
 				'process.env': {
 				  NODE_ENV: JSON.stringify('developement')
 				}
 		}),
-		//new UglifyJsPlugin({cacheFolder: 'cache'})
+		new UglifyJsPlugin({cacheFolder: 'cache'})
 	],
  module: {
  	loaders: [
