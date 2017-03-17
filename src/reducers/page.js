@@ -28,6 +28,12 @@ export default function reducer(state=defaultState, action) {
 		return { show: 'csv-ready' }
 	} else if(type === 'CSV_GEOM_WKT') {
 		return { show: 'csv-ready' }
+	} else if(type === 'GOT_SHP') {
+		return { show: 'drop-dbf' }
+	} else if(type === 'GOT_DBF') {
+		return { show: 'shp' }
+	} else if(type === 'SHP_ERROR') {
+		return { show: 'info', msg: 'Could not convert SHP file', reset: true }
 	} else {
 		return state
 	}

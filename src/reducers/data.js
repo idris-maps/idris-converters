@@ -22,6 +22,10 @@ export default function reducer(state=defaultState, action) {
 		return {...state, geom: { type: 'll', lat: action.payload.lat, lng: action.payload.lng } }
 	} else if(type === 'CSV_GEOM_WKT') {
 		return {...state, geom: { type: 'wkt', wkt: action.payload.wkt } }
+	} else if(type === 'GOT_SHP') {
+		return {...state, type: 'shp', shpData: action.payload.shp, name: action.payload.name }
+	} else if(type === 'GOT_DBF') {
+		return {...state, dbfData: action.payload }
 	} else {
 		return state
 	}

@@ -1,10 +1,10 @@
 var read = require('./drop-file/read')
 
 module.exports = function(file) {
+	console.log('actions dropFile file', file)
 	return function(dispatch) {
 		dispatch({ type: 'GOT_FILE' })
 		var ext = checkType(file)
-		console.log('action dropFile ext', ext)
 		if(ext) {
 			if(ext === 'json') {
 				read.json(file, function(err, json) {
@@ -19,6 +19,14 @@ module.exports = function(file) {
 				read.gpx(file, function(err, points) {
 					if(err) { dispatch({ type: 'GPX_ERROR', payload: err }) }
 					else { dispatch({ type: 'GOT_GPX_POINTS', payload: points }) }
+				})
+			} else if(ext === 'shp') {
+				read.buffer(file, function(buffer) {
+					dispatch({ type: 'GOT_SHP', payload: { shp: buffer, name: file.name.split('.')[0] }})
+				})
+			} else if(ext === 'dbf') {
+				read.buffer(file, function(buffer) {
+					dispatch({ type: 'GOT_DBF', payload: buffer })
 				})
 			} else { console.log('unknown ext:', ext) }
 		} else {
@@ -37,6 +45,8 @@ function checkType(file) {
 		return 'gpx'
 	} else if(ext === 'json' || ext === 'geojson') {
 		return 'json'
+	} else if(ext === 'shp' || ext === 'dbf') {
+		return ext
 	} else {
 		return null
 	}

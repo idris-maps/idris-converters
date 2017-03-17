@@ -39,3 +39,11 @@ exports.gpx = function(file, callback) {
 		})
 	})
 }
+
+exports.buffer = function(file, callback) {
+	var readBuff = new FileReader()
+	readBuff.onload = function() {
+		callback(readBuff.result)
+	}
+	readBuff.readAsArrayBuffer(file)
+}

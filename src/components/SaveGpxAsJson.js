@@ -4,7 +4,7 @@ import saveAction from '../actions/saveFile'
 
 
 class SaveGpxAsJson extends Component {
-	saveSql(data, dispatch, type) {
+	saveGpx(data, dispatch, type) {
 		if(type === 'p') { data.as = 'points' }
 		else if(type === 'l') { data.as = 'line' }
 		data.to = 'json'
@@ -12,10 +12,10 @@ class SaveGpxAsJson extends Component {
 	}
 	render() {
 		return (<div>
-			<button onClick={ () => this.saveSql(this.props.data, this.props.dispatch, 'p') }>
+			<button onClick={ () => this.saveGpx(this.props.data, this.props.dispatch, 'p') }>
 				Download GeoJSON points
 			</button>
-			<button onClick={ () => this.saveSql(this.props.data, this.props.dispatch, 'l') }>
+			<button onClick={ () => this.saveGpx(this.props.data, this.props.dispatch, 'l') }>
 				Download GeoJSON line
 			</button>
 			<button onClick={ () => this.props.dispatch({ type: 'RESET' }) }>

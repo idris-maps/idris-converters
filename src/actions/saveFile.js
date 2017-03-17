@@ -1,7 +1,7 @@
 var save = require('./save-file/save-as')
 var gpx = require('./save-file/gpx')
 var csv = require('./save-file/csv')
-
+var store = require('../store')
 module.exports = function(data) {
 	return function(dispatch) {
 		dispatch({ type: 'SAVING_FILE' })
@@ -22,6 +22,14 @@ module.exports = function(data) {
 			require.ensure(['./save-file/csv'], function(require) {
 				var csv = require('./save-file/csv')
 				save.json('from-csv', csv(data.head, data.rows, data.geom))
+			})
+		} else if(data.type === 'shp') {
+			require.ensure(['./save-file/shp'], function(require) {
+				var shp = require('./save-file/shp')
+				shp(data, function(err, col) {
+					if(err) { store.dispatch({ type: 'SHP_ERROR' }) }
+					save.json('from-shp', col)
+				})
 			})
 		}
 	}

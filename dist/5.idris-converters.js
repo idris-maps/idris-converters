@@ -1,13 +1,13 @@
-webpackJsonp([1],{
+webpackJsonp([5],{
 
-/***/ 107:
+/***/ 103:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var wkt = __webpack_require__(108);
-var fixString = __webpack_require__(256);
+var wkt = __webpack_require__(104);
+var fixString = __webpack_require__(254);
 
 module.exports = function (json, callback) {
 	var props = getProps(json.features);
@@ -75,7 +75,7 @@ function getProps(feats) {
 
 /***/ }),
 
-/***/ 256:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

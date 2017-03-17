@@ -9,6 +9,8 @@ import CsvHead from './CsvHead'
 import CsvDefineHead from './CsvDefineHead'
 import CsvGeom from './CsvGeom'
 import SaveCsvAsJson from './SaveCsvAsJson'
+import DropDbf from './DropDbf'
+import SaveShpAsJson from './SaveShpAsJson'
 
 class App extends Component {
 	whatToRender() {
@@ -48,6 +50,13 @@ class App extends Component {
 			/>)
 		} else if(show === 'csv-ready') {
 			return (<SaveCsvAsJson 
+				dispatch={ this.props.dispatch }
+				data={ this.props.data }
+			/>)
+		} else if(show === 'drop-dbf') {
+			return (<DropDbf dispatch={ this.props.dispatch } name={ this.props.data.name } />)
+		} else if(show === 'shp') {
+			return (<SaveShpAsJson 
 				dispatch={ this.props.dispatch }
 				data={ this.props.data }
 			/>)
