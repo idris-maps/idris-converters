@@ -1,11 +1,11 @@
 var wkt = require('wellknown')
 
 module.exports = function(head, rows, geom) {
-	var feats = rows.map( (row) => {
-		var geo = getProps(head, row, geom)
-		if(geo) {
-			return getFeat(geo, getGeom(head, row, geom))
-		}
+	var feats = []
+	rows.forEach(function(row) {
+		var props = getProps(head, row, geom)
+		var geometry = getGeom(head, row, geom)
+		if(geometry) { feats.push(getFeat(props, geometry)) }
 	})
 	return { type: 'FeatureCollection', features: feats }
 }
